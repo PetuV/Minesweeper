@@ -1,4 +1,4 @@
-**Aihe:** Versio miinaharavapelistä. Pelaaja paljastaa ruutuja, joiden alla on tyhjää, miina tai vinkki läheisistä miinoista. Tarkoitus on paljastaa kaikki ruudut, joiden alla ei ole miinaa.
+﻿**Aihe:** Versio miinaharavapelistä. Pelaaja paljastaa ruutuja, joiden alla on tyhjää, miina tai vinkki läheisistä miinoista. Tarkoitus on paljastaa kaikki ruudut, joiden alla ei ole miinaa.
 
 **Käyttäjät:** Pelaaja
 
@@ -7,3 +7,6 @@
 - Ruudun paljastaminen
 - Lipun asettaminen
 - Pelin resetointi
+
+**Luokkakaavio**
+![luokkakaavio](/luokkakaavio1.png)
