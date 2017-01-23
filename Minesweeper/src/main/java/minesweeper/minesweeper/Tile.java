@@ -40,7 +40,7 @@ public class Tile {
         isMine = bool;
     }
     
-    public boolean getHidden() {
+    public boolean getIsHidden() {
         return isHidden;
     }
     
@@ -50,6 +50,6 @@ public class Tile {
     
     @Override
     public String toString() {
-        return(mines + " mines. Hidden: " + isHidden + ". Mine: " + isMine);
+        return (mines + " mines. Hidden: " + isHidden + ". Mine: " + isMine);
     }
 }

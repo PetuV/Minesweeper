@@ -47,7 +47,7 @@ public class TileTest {
     public void tileStartsAsHidden() {
         Tile tile = new Tile();
         
-        assertEquals(true, tile.getHidden());
+        assertEquals(true, tile.getIsHidden());
     }
     
     @Test
@@ -83,5 +83,12 @@ public class TileTest {
         Tile tile = new Tile();
         tile.setIsMine(true);
         assertEquals(true, tile.revealTile());
+    }
+    
+    @Test
+    public void canSetIsHidden() {
+        Tile tile = new Tile();
+        tile.setIsHidden(false);
+        assertEquals(false, tile.getIsHidden());
     }
 }

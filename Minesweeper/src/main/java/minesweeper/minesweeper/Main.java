@@ -25,8 +25,11 @@ public class Main {
         for (int i = 0; i < tiles.length; i++) {
             String s = "";
             for (int j = 0; j < tiles[0].length; j++) {
-                if (tiles[i][j].getIsMine()) s += "*";
-                else s+= tiles[i][j].getMines();
+                if (tiles[i][j].getIsMine()) {
+                    s += "*";
+                } else  {
+                    s += tiles[i][j].getMines();
+                }
             }
             System.out.println(s);
         }
