@@ -7,3 +7,7 @@ Versio miinaharavapelist‰. Pelaaja paljastaa ruutuja, joiden alla on tyhj‰‰, mii
 [Aihem‰‰rittely](dokumentaatio/Aihemaarittely.md)
 
 [Tuntikirjanpito](dokumentaatio/Tuntikirjanpito.md)
+
+[Pit-raportti](https://htmlpreview.github.io/?https://github.com/PetuV/Minesweeper/tree/master/Dokumentaatio/Pit/index.html)
+
+[Checkstyle](https://htmlpreview.github.io/?https://github.com/PetuV/Minesweeper/tree/master/Dokumentaatio/site/checkstyle.html)
