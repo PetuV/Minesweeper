@@ -43,11 +43,11 @@ public class Game {
         }
     }
     
-    public void printTiles() {
+    @Override
+    public String toString() {
         Tile[][] tiles = gameBoard.getTiles();
-        
+        String s = "";
         for (int i = 0; i < tiles.length; i++) {
-            String s = "";
             for (int j = 0; j < tiles[0].length; j++) {
                 if (tiles[i][j].getIsFlagged()) {
                     s += "F";
@@ -59,8 +59,9 @@ public class Game {
                     s += tiles[i][j].getMines();
                 }
             }
-            System.out.println(s);
+            s += "\n";
         }
+        return s;
     }
     
     public Board getBoard() {

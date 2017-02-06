@@ -30,17 +30,20 @@ public class Main {
 //        printTiles(gameBoard);
 
         Game game = new Game(8, 8, new Random(), 10);
-        game.printTiles();
+        System.out.println(game);
         System.out.println("");
         System.out.println("--------");
         System.out.println("");
         game.clickTile(game.getBoard().getTileAt(3, 3));
-        game.printTiles();
+        System.out.println(game);
         System.out.println("");
         System.out.println("--------");
         System.out.println("");
         game.getBoard().revealAllTiles();
-        game.printTiles();
+        System.out.println(game);
+        
+        GUI gui = new GUI();
+        
     }
     
     public static void printTiles(Board gameBoard) {
