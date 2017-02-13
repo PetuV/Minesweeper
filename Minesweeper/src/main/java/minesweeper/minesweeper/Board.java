@@ -5,28 +5,45 @@
  */
 package minesweeper.minesweeper;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Random;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 /**
  *
  * @author Petteri
  */
-public class Board {
+public class Board extends JPanel {
     private Tile[][] tiles;
     
     public Board(int x, int y, Random random, int mines) {
+        setLayout(new GridLayout(x, y));
+        setPreferredSize(new Dimension(350, 350));
         tiles = new Tile[x][y];
-        
         for (int i = 0; i < x; i++) {
             for (int j = 0; j < y; j++) {
                 tiles[i][j] = new Tile(i, j);
+                this.add(tiles[i][j]);
             }
         }
         setMines(random, mines);
         countNeighboringMines();
     }
-    
+    /**
+    * Asettaa ruuduille miinoja parametreina annetun
+    * mines luvun verran ja randomin mukaisesti.
+    * 
+    * @param random Satunnaislukujuttu
+    * @param mines Miinojen määrä
+    */
     public void setMines(Random random, int mines) {
         for (int i = 0; i < mines; i++) {
             int x = random.nextInt(tiles.length);
@@ -40,43 +57,11 @@ public class Board {
             tiles[x][y].setIsMine(true);
         }
     }
-    
+    /**
+    * Laskee, kuinka monta miinaa on kunkin ruudun ympärillä
+    * ja asettaa ruudun mines muuttujan.
+    */
     public void countNeighboringMines() {
-//        for (int i = 0; i < tiles.length; i++) {
-//            for (int j = 0; j < tiles[0].length; j++) {
-//                if (!tiles[i][j].getIsMine()) {
-//                    int mines = 0;
-//                    int xmin = i - 1;
-//                    int ymin = j - 1;
-//                    int xmax = i + 1;
-//                    int ymax = j + 1;
-//                    if (i == 0) {
-//                        xmin = 0;
-//                    }
-//                    if (j == 0) {
-//                        ymin = 0;
-//                    }
-//                    if (i == tiles.length - 1) {
-//                        xmax = tiles.length - 1;
-//                    }
-//                    if (j == tiles[0].length - 1) {
-//                        ymax = tiles[0].length - 1;
-//                    }
-//                    
-//                    for (int k = xmin; k <= xmax; k++) {
-//                        for (int l = ymin; l <= ymax; l++) {
-//                            if (tiles[k][l].getIsMine()) {
-//                                mines++;
-//                            }
-//                        }
-//                    }
-//                    tiles[i][j].setMines(mines);
-//                } else {
-//                    tiles[i][j].setMines(-1);
-//                }
-//            }
-//        }
-
         for (int i = 0; i < tiles.length; i++) {
             for (int j = 0; j < tiles[0].length; j++) {
                 if (tiles[i][j].getIsMine()) {
@@ -94,29 +79,36 @@ public class Board {
             }
         }
     }
-    
+    /**
+    * Etsii kaikki vieressä olevat ruudut
+    * syötteenä annetulle ruudulle.
+    *
+    * @param   tile   Ruutu, jonka naapurit halutaan etsiä.
+    * 
+    * @return Lista naapureista.
+    */
     public ArrayList<Tile> getNeighbors(Tile tile) {
         ArrayList<Tile> neighbors = new ArrayList<>();
-        int xmin = tile.getX() - 1;
-        int ymin = tile.getY() - 1;
-        int xmax = tile.getX() + 1;
-        int ymax = tile.getY() + 1;
-        if (tile.getX() == 0) {
+        int xmin = tile.getTileX() - 1;
+        int ymin = tile.getTileY() - 1;
+        int xmax = tile.getTileX() + 1;
+        int ymax = tile.getTileY() + 1;
+        if (tile.getTileX() == 0) {
             xmin = 0;
         }
-        if (tile.getY() == 0) {
+        if (tile.getTileY() == 0) {
             ymin = 0;
         }
-        if (tile.getX() == tiles.length - 1) {
+        if (tile.getTileX() == tiles.length - 1) {
             xmax = tiles.length - 1;
         }
-        if (tile.getY() == tiles[0].length - 1) {
+        if (tile.getTileY() == tiles[0].length - 1) {
             ymax = tiles[0].length - 1;
         }
 
         for (int i = xmin; i <= xmax; i++) {
             for (int j = ymin; j <= ymax; j++) {
-                if (i != tile.getX() || j != tile.getY()) {
+                if (i != tile.getTileX() || j != tile.getTileY()) {
                     neighbors.add(tiles[i][j]);
                 }
             }
@@ -124,7 +116,12 @@ public class Board {
         
         return neighbors;
     }
-    
+    /**
+    * Paljastaa ruudun ja kutsuu itsensä paljastamaan ruudun naapurit, 
+    * jos ruudun vieressä ei ole yhtään miinaa.
+    *
+    * @param   tile   Ruutu, joka paljastetaan.
+    */
     public void revealTile(Tile tile) {
         if (tile.getIsHidden()) {
             tile.reveal();
@@ -137,7 +134,10 @@ public class Board {
             
         }
     }
-    
+    /**
+    * Paljastaa kaikki ruudut. Testikäyttöön tarkoitettu metodi, 
+    * jota ei välttämättä käytetä oikean pelin aikana koskaan.
+    */
     public void revealAllTiles() {
         for (int i = 0; i < tiles.length; i++) {
             for (int j = 0; j < tiles[0].length; j++) {

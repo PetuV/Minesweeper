@@ -9,10 +9,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 /**
- *
+ * DEPRECATED
  * @author Petteri
  */
-public class MyMouseListener implements MouseListener{
+public class MyMouseListener implements MouseListener {
     @Override
     public void mousePressed(MouseEvent e) {
        
@@ -35,6 +35,7 @@ public class MyMouseListener implements MouseListener{
 
     @Override
     public void mouseClicked(MouseEvent e) {
-       
+        System.out.println("jee");
+        
     }
 }

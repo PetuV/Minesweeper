@@ -5,11 +5,17 @@
  */
 package minesweeper.minesweeper;
 
+import java.awt.Color;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import javax.swing.BorderFactory;
+import javax.swing.JLabel;
+
 /**
  *
  * @author Petteri
  */
-public class Tile {
+public class Tile extends JLabel implements MouseListener {
     private int x;
     private int y;
     private int mines;
@@ -24,26 +30,16 @@ public class Tile {
         this.isMine = false;
         this.isHidden = true;
         this.isFlagged = false;
+        //setText(x + ", " + y);
+        determineText();
+        setBorder(BorderFactory.createLineBorder(Color.black));
+        this.setHorizontalAlignment(JLabel.CENTER);
+        this.addMouseListener(this);
     }
     
     public void reveal() {
         isHidden = false;
-    }
-    
-    public int getX() {
-        return x;
-    }
-    
-    public void setX(int n) {
-        x = n;
-    }
-    
-    public int getY() {
-        return y;
-    }
-    
-    public void setY(int n) {
-        x = y;
+        determineText();
     }
     
     public int getMines() {
@@ -77,8 +73,59 @@ public class Tile {
         isFlagged = bool;
     }
     
+    public int getTileX() {
+        return x;
+    }
+    
+    public int getTileY() {
+        return y;
+    }
+    /**
+    * Asettaa ruudun tekstin sen tilan mukaisesti.
+    */
+    public void determineText() {
+        if (isFlagged) {
+            setText("F");
+        } else if (isHidden) {
+            setText("?");
+        } else if (isMine) {
+            setText("X");
+        } else if (mines == 0) {
+            setText("");
+        } else {
+            setText(Integer.toString(mines));
+        }
+    }
+    
     @Override
     public String toString() {
         return (mines + " mines. Hidden: " + isHidden + ". Mine: " + isMine + ". Flagged: " + isFlagged);
+    }
+
+    @Override
+    public void mouseClicked(MouseEvent me) {
+//        setText("jeo");
+        Board board = (Board) this.getParent();
+        board.revealTile(this);
+    }
+
+    @Override
+    public void mousePressed(MouseEvent me) {
+        
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent me) {
+        
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent me) {
+        
+    }
+
+    @Override
+    public void mouseExited(MouseEvent me) {
+        
     }
 }

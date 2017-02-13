@@ -6,9 +6,10 @@
 package minesweeper.minesweeper;
 
 import java.util.Random;
+import javax.swing.JPanel;
 
 /**
- *
+ * Mahdollisesti turha?
  * @author Petteri
  */
 public class Game {

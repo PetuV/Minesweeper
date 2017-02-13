@@ -7,6 +7,7 @@ package minesweeper.minesweeper;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.MouseListener;
 import java.util.Random;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -26,31 +27,15 @@ public class GUI extends javax.swing.JFrame {
     GridLayout layout;
     
     public GUI() {
-        game = new Game(8, 8, new Random(), 10);
-        layout = new GridLayout(8, 8);
         customInit();
         //initComponents();
         
     }
     
     private void customInit() {
-        JPanel board = new JPanel();
-        board.setLayout(layout);
+        game = new Game(12, 12, new Random(), 5);
         
-        //Set up components preferred size
-        JButton b = new JButton("Just fake button");
-        Dimension buttonSize = b.getPreferredSize();
-        board.setPreferredSize(new Dimension((int)(buttonSize.getWidth() * 2.5)+ 100,
-                (int)(buttonSize.getHeight() * 3.5)+ 100 * 2));
-        
-        
-        for (int i = 0; i < 8; i++) {
-            for (int j = 0; j < 8; j++) {
-                board.add(new JLabel(i + ", " + j));
-            }
-        }
-        
-        getContentPane().add(board);
+        getContentPane().add(game.getBoard());
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //Set up the content pane.
