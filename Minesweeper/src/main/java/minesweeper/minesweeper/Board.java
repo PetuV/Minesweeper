@@ -5,25 +5,29 @@
  */
 package minesweeper.minesweeper;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import java.util.Random;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 /**
- *
+ * Board pitää sisällään kaksiulotteisen taulukon kaikista tileistä 
+ * ja suuren osan pelin toiminnallisuudesta.
  * @author Petteri
  */
 public class Board extends JPanel {
     private Tile[][] tiles;
+    private int flagsLeft;
     
+    /**
+    * Luokan konstrukstori.
+    * @param x Pelilaudan leveys.
+    * @param y Pelilaudan korkeus.
+    * @param random Käytetään miinojen asettamisessa satunnaisiin sijainteihin.
+    * @param mines Miinojen määrä.
+    */
     public Board(int x, int y, Random random, int mines) {
         setLayout(new GridLayout(x, y));
         setPreferredSize(new Dimension(350, 350));
@@ -36,6 +40,7 @@ public class Board extends JPanel {
         }
         setMines(random, mines);
         countNeighboringMines();
+        flagsLeft = mines;
     }
     /**
     * Asettaa ruuduille miinoja parametreina annetun
@@ -123,33 +128,88 @@ public class Board extends JPanel {
     * @param   tile   Ruutu, joka paljastetaan.
     */
     public void revealTile(Tile tile) {
-        if (tile.getIsHidden()) {
-            tile.reveal();
-            if (tile.getMines() == 0) {
-                ArrayList<Tile> neighbors = getNeighbors(tile);
-                for (int i = 0; i < neighbors.size(); i++) {
-                    revealTile(neighbors.get(i));
+        if (tile.getIsHidden() && !tile.getIsFlagged()) {
+            if (tile.getIsMine()) {
+                lose();
+            } else {
+                tile.reveal();
+                if (tile.getMines() == 0) {
+                    ArrayList<Tile> neighbors = getNeighbors(tile);
+                    for (int i = 0; i < neighbors.size(); i++) {
+                        revealTile(neighbors.get(i));
+                    }
                 }
             }
-            
         }
     }
     /**
-    * Paljastaa kaikki ruudut. Testikäyttöön tarkoitettu metodi, 
-    * jota ei välttämättä käytetä oikean pelin aikana koskaan.
+    * Paljastaa kaikki ruudut ja vaihtaa miinan värin parametrin mukaisesti. 
+    * Käytetään pelin päättyessä.
+    * 
+    * @param color Haluttu väri. lightGray on "oletusväri", RED hävitessä, GREEN voittaessa.
     */
-    public void revealAllTiles() {
+    public void revealAllTiles(Color color) {
         for (int i = 0; i < tiles.length; i++) {
             for (int j = 0; j < tiles[0].length; j++) {
                 tiles[i][j].setIsHidden(false);
+                if (tiles[i][j].getIsMine()) {
+                    tiles[i][j].setBackground(color);
+                }
             }
         }
+    }
+    /**
+    * Laittaa tileen lipun tai ottaa sen pois, jos sillä on sellainen.
+    * Sitten päivittää lippujen määrää suoritetun toiminnon mukaisesti.
+    * @param tile Tile, jolle toiminto suoritetaan.
+    */
+    public void toggleFlag(Tile tile) {
+        if (tile.putFlag()) {
+            flagsLeft--;
+        } else {
+            flagsLeft++;
+        }
+        if (flagsLeft == 0) {
+            checkWin();
+        }
+    }
+    /**
+    * Tarkistaa, onko olemassa ruutuja, joissa on miina, muttei lippua.
+    * Jos on, paljastetaan kaikki ruudut ja väritetään ne vihreiksi.
+    * Muussa tapauksessa ei tehdä mitään.
+    */
+    public void checkWin() {
+        boolean winning = true;
+        for (int i = 0; i < tiles.length; i++) {
+            for (int j = 0; j < tiles[0].length; j++) {
+                if (!tiles[i][j].getIsFlagged() && tiles[i][j].getIsMine()) {
+                    winning = false;
+                    i = tiles.length;
+                    break;
+                }
+            }
+        }
+        if (winning) {
+            revealAllTiles(Color.GREEN);
+        }
+    }
+    /**
+    * Kutsuu revealAllTiles() metodin parametrilla Color.RED.
+    * Käytetään, kun pelaaja häviää pelin.
+    */
+    public void lose() {
+        revealAllTiles(Color.RED);
     }
     
     public Tile[][] getTiles() {
         return tiles;
     }
-    
+    /**
+    * Palauttaa tietyssä sijainnissa olevan Tilen.
+    * @param x Tilen X -koordinaatti.
+    * @param y Tilen Y -koordinaatti.
+    * @return Palauttaa Tilen, joka löydettiin annetuilla koordinaateilla.
+    */
     public Tile getTileAt(int x, int y) {
         return tiles[x][y];
     }

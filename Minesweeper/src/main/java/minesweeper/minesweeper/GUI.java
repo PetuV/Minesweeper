@@ -5,27 +5,19 @@
  */
 package minesweeper.minesweeper;
 
-import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.event.MouseListener;
 import java.util.Random;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
 
 /**
- *
+ * Pelin pääluokka.
  * @author Petteri
  */
 public class GUI extends javax.swing.JFrame {
 
     /**
-     * Creates new form GUI
-     */
-    Game game;
-    GridLayout layout;
-    
+     * GUIn konstruktori.
+     */    
     public GUI() {
         customInit();
         //initComponents();
@@ -33,9 +25,7 @@ public class GUI extends javax.swing.JFrame {
     }
     
     private void customInit() {
-        game = new Game(12, 12, new Random(), 5);
-        
-        getContentPane().add(game.getBoard());
+        getContentPane().add(new Board(8, 8, new Random(), 10));
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //Set up the content pane.
@@ -70,6 +60,7 @@ public class GUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     /**
+     * Luokan päämetodi.
      * @param args the command line arguments
      */
     public static void main(String args[]) {

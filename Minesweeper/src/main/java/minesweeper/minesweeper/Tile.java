@@ -10,9 +10,11 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
 
 /**
- *
+ * Simuloi pelilaudon ruutua. 
+ * Pitää sisälään ruudun tiedot ja osan toiminnallisuudesta.
  * @author Petteri
  */
 public class Tile extends JLabel implements MouseListener {
@@ -23,6 +25,11 @@ public class Tile extends JLabel implements MouseListener {
     private boolean isHidden;
     private boolean isFlagged;
     
+    /**
+    * Tilen konstruktori.
+    * @param x Tilen X -koordinaatti.
+    * @param y Tilen Y -koordinaatti.
+    */
     public Tile(int x, int y) {
         this.x = x;
         this.y = y;
@@ -35,8 +42,12 @@ public class Tile extends JLabel implements MouseListener {
         setBorder(BorderFactory.createLineBorder(Color.black));
         this.setHorizontalAlignment(JLabel.CENTER);
         this.addMouseListener(this);
+        this.setOpaque(true);
+        this.setBackground(Color.lightGray);
     }
-    
+    /**
+    * Paljastaa ruudun ja päivittää sen determineText() metodilla.
+    */
     public void reveal() {
         isHidden = false;
         determineText();
@@ -73,10 +84,12 @@ public class Tile extends JLabel implements MouseListener {
         isFlagged = bool;
     }
     
+    //Nimetty hassusti koska getX overrideaa JLabelin metodin
     public int getTileX() {
         return x;
     }
     
+    //Nimetty hassusti koska getY overrideaa JLabelin metodin
     public int getTileY() {
         return y;
     }
@@ -96,6 +109,23 @@ public class Tile extends JLabel implements MouseListener {
             setText(Integer.toString(mines));
         }
     }
+    /**
+    * Asettaa ruutuun lipun tai ottaa sen pois, jos sellainen on jo.
+    * Jos lippu poistetaan, ruutu myös piilotetaan.
+    * Sitten päivitetään ruutu determineText() metodilla.
+    * @return Palauttaa tiedon siitä, onko Tilessä metodin jälkeen lippu.
+    */
+    public boolean putFlag() {
+        if (!isFlagged) {
+            isFlagged = true;
+            isHidden = true;
+        } else {
+            isFlagged = false;
+        }
+        
+        determineText();
+        return isFlagged;
+    }
     
     @Override
     public String toString() {
@@ -104,9 +134,13 @@ public class Tile extends JLabel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent me) {
-//        setText("jeo");
         Board board = (Board) this.getParent();
-        board.revealTile(this);
+        if (SwingUtilities.isLeftMouseButton(me)) {
+            board.revealTile(this);
+        } else if (SwingUtilities.isRightMouseButton(me)) {
+            board.toggleFlag(this);
+        }
+        
     }
 
     @Override
