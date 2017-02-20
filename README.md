@@ -4,9 +4,9 @@ Versio miinaharavapelistä. Pelaaja paljastaa ruutuja, joiden alla on tyhjää, 
 
 #Dokumentaatio
 
-[Aihemäärittely](https://htmlpreview.github.io/?https://github.com/PetuV/Minesweeper/blob/master/Dokumentaatio/Aihemaarittely.md)
+[Aihemäärittely](Dokumentaatio/Aihemaarittely.md)
 
-[Tuntikirjanpito](https://htmlpreview.github.io/?https://github.com/PetuV/Minesweeper/blob/master/Dokumentaatio/Tuntikirjanpito.md)
+[Tuntikirjanpito](Dokumentaatio/Tuntikirjanpito.md)
 
 [Pit-raportti](https://htmlpreview.github.io/?https://github.com/PetuV/Minesweeper/blob/master/Dokumentaatio/Pit/index.html)
 
