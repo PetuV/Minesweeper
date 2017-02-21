@@ -25,7 +25,7 @@ public class GUI extends javax.swing.JFrame {
     }
     
     private void customInit() {
-        getContentPane().add(new Board(8, 8, new Random(), 10));
+        getContentPane().add(new Board(8, 8, new Random(), 3));
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //Set up the content pane.
