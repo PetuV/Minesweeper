@@ -7,3 +7,4 @@ Päivä | Tunnit | Kuvaus
 06.02.2017 | 2h | GUIn aloittelua.
 13.02.2017 | 3h | Graafisen version perustoiminnallisuus toteutettu.
 20.02.2017 | 3h | Peli on nyt täysin toiminnallinen.
+27.02.2017 | 3h | Testejä, dokumentaatiota ja muuta mielenkiintoista toimintaa.

@@ -2,11 +2,15 @@
 
 **Käyttäjät:** Pelaaja
 
-**Pelaajan toiminnot:** 
-- Pelin käynnistäminen
+**Pelaajan toiminnot:**
 - Ruudun paljastaminen
 - Lipun asettaminen
-- Pelin resetointi
 
 **Luokkakaavio**
-![luokkakaavio](/luokkakaavio1.png)
+![luokkakaavio](Dokumentaatio/luokkakaavio2.png)
+
+**Sekvensiikaavio 1**
+![sekvenssikaavio1](Dokumentaatio/sequenceReveal.png)
+
+**Sekvensiikaavio 2**
+![sekvenssikaavio2](Dokumentaatio/sequenceFlag.png)

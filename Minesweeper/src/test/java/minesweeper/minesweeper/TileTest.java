@@ -94,4 +94,63 @@ public class TileTest {
         tile.setIsHidden(false);
         assertEquals(false, tile.getIsHidden());
     }
+    
+    @Test
+    public void determineTextSetsFlaggedText() {
+        Tile tile = new Tile(1, 1);
+        tile.setIsFlagged(true);
+        tile.determineText();
+        assertEquals("F", tile.getText());
+    }
+    
+    @Test
+    public void determineTextSetsHiddenText() {
+        Tile tile = new Tile(1, 1);
+        tile.setIsHidden(true);
+        tile.determineText();
+        assertEquals("?", tile.getText());
+    }
+    
+    @Test
+    public void determineTextSetsMinedText() {
+        Tile tile = new Tile(1, 1);
+        tile.setIsMine(true);
+        tile.setIsHidden(false);
+        tile.determineText();
+        assertEquals("X", tile.getText());
+    }
+    
+    @Test
+    public void determineTextSetsEmptyText() {
+        Tile tile = new Tile(1, 1);
+        tile.setIsFlagged(false);
+        tile.setMines(0);
+        tile.setIsHidden(false);
+        tile.determineText();
+        assertEquals("", tile.getText());
+    }
+    
+    @Test
+    public void determineTextSetsTextToMineCount() {
+        Tile tile = new Tile(1, 1);
+        tile.setIsFlagged(false);
+        tile.setMines(3);
+        tile.setIsHidden(false);
+        tile.determineText();
+        assertEquals("3", tile.getText());
+    }
+    
+    @Test
+    public void putFlagReturnsTrueOnFlaglessTile() {
+        Tile tile = new Tile(1, 1);
+        tile.setIsFlagged(false);
+        assertEquals(true, tile.putFlag());
+    }
+    
+    @Test
+    public void putFlagReturnsFalseOnFlaggedTile() {
+        Tile tile = new Tile(1, 1);
+        tile.setIsFlagged(true);
+        assertEquals(false, tile.putFlag());
+    }
 }

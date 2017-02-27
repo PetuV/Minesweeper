@@ -204,6 +204,14 @@ public class Board extends JPanel {
     public Tile[][] getTiles() {
         return tiles;
     }
+    
+    public int getFlagsLeft() {
+        return flagsLeft;
+    }
+    
+    public void setFlagsLeft(int i) {
+        flagsLeft = i;
+    }
     /**
     * Palauttaa tietyssä sijainnissa olevan Tilen.
     * @param x Tilen X -koordinaatti.
