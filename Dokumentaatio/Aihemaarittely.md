@@ -7,10 +7,10 @@
 - Lipun asettaminen
 
 **Luokkakaavio**
-![luokkakaavio](Dokumentaatio/luokkakaavio2.png)
+![luokkakaavio](luokkakaavio2.png)
 
 **Sekvensiikaavio 1**
-![sekvenssikaavio1](Dokumentaatio/sequenceReveal.png)
+![sekvenssikaavio1](sequenceReveal.png)
 
 **Sekvensiikaavio 2**
-![sekvenssikaavio2](Dokumentaatio/sequenceFlag.png)
+![sekvenssikaavio2](sequenceFlag.png)
